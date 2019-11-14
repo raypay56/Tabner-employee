@@ -1,0 +1,49 @@
+<div *ngIf="error" class="alert alert-danger">{{error}}</div>
+<div *ngIf="success" class="alert alert-success">{{success}}</div>
+<div class="login-wrapper" fxLayout="row" fxLayoutAlign="center center">  <!--check with flex-box--> 
+
+    <mat-card class="box">
+        <mat-card-header>
+            <mat-card-title>Log in</mat-card-title> <!--Css fiels -->
+        </mat-card-header>
+     
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" novalidate>
+
+            <mat-form-field>
+                <input id="email"
+                    matInput
+                    formControlName="email"
+                    class="form-control" 
+                    [ngClass]="{ 'is-invalid': submitted && f.username.errors }"
+                    placeholder="email" />
+                    <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
+                        <div *ngIf="f.username.errors.required">Username is required</div>
+                    </div>
+            </mat-form-field><br>
+  
+            <mat-form-field>
+                <input id="password"
+                    matInput
+                    formControlName="password"
+                    [ngClass]="{ 'is-invalid': submitted && f.password.errors }"
+                    placeholder="password"
+                    [type]="hide ? 'password':'text'" />
+                <mat-icon matSuffix (click)="hide = !hide">
+                    {{hide ? 'visibility' : 'visibility_off'}}
+                </mat-icon>
+                <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                    <div *ngIf="f.password.errors.required">Password is required</div>
+                </div>
+            </mat-form-field><br>
+
+            <button mat-button type="submit" 
+                class="mat-raised-button mat-primary" 
+                [disabled]="!loginForm.valid">
+                <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                Login
+            </button>
+            
+        </form>
+    </mat-card>
+  
+  </div>

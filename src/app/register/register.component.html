@@ -1,0 +1,86 @@
+<div *ngIf="error" class="alert alert-danger">{{error}}</div>
+<div class="login-wrapper" fxLayout="row" fxLayoutAlign="center center">
+    <mat-card class="box">
+        <mat-card-header>
+            <mat-card-title>Register</mat-card-title>
+        </mat-card-header>
+  
+        <form [formGroup]="registerForm" (ngSubmit)="Submit()" novalidate>
+            <div class="form-container">
+                <mat-form-field>
+                    <input id="firstName"
+                    matInput
+                    formControlName="firstName"
+                    [(ngModel)]="{ 'is-invalid': submitted && f.firstName.errors }"
+                    placeholder="First Name" />
+                    <div *ngIf="submitted && f.firstName.errors" class="invalid-feedback">
+                        <div *ngIf="f.firstName.errors.required">First name is required</div>
+                    </div>
+                </mat-form-field>
+
+                <mat-form-field>
+                        <input id="lastName"
+                        matInput
+                        formControlName="lastName"
+                        [(ngModel)]="{ 'is-invalid': submitted && f.lastName.errors }"
+                        placeholder="Last Name" />
+                        <div *ngIf="submitted && f.lastName.errors" class="invalid-feedback">
+                            <div *ngIf="f.lastName.errors.required">Last Name is required</div>
+                        </div>
+                    </mat-form-field>
+  
+                <mat-form-field> 
+                    <input id="email"
+                     matInput
+                     formControlName="email"
+                     [(ngModel)]="{ 'is-invalid': submitted && f.email.errors }"
+                     placeholder="email id" />
+                     <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                            <div *ngIf="f.email.errors.required">Email is required</div>
+                        </div>
+                </mat-form-field>
+  
+                <mat-form-field>
+                    <input id="password"
+                     matInput
+                     formControlName="password"
+                     [(ngModel)]="{ 'is-invalid': submitted && f.password.errors }"
+                     placeholder="password"
+                     [type]="hide ? 'password':'text'" />
+                     <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                        <div *ngIf="f.password.errors.required">Password is required</div>
+                        <div *ngIf="f.password.errors.minlength">Password must be at least 6 characters</div>
+                    </div>
+                    <mat-icon matSuffix (click)="hide = !hide">
+                        {{hide ? 'visibility' : 'visibility_off'}}
+                    </mat-icon>
+                </mat-form-field>
+
+                <mat-form-field>
+                    <input id="confirmPassword"
+                    matInput
+                    formControlName="confirmPassword"
+                    [(ngModel)]="{ 'is-invalid': submitted && f.confirmPassword.errors }"
+                    placeholder="confirm password"
+                    [type]="hide ? 'confirmPassword':'text'" />
+                    <div *ngIf="submitted && f.confirmPassword.errors" class="invalid-feedback">
+                        <div *ngIf="f.confirmPassword.errors.required">Password is Required</div>
+                        <div *ngIf="f.confirmPassword.errors.mustMatch">Passwords must match</div>
+                    </div>
+                    <mat-icon matSuffix (click)="hide = !hide">
+                        {{hide ? 'visibility' : 'visibility_off'}}
+                    </mat-icon>
+                </mat-form-field>
+  
+                <button mat-button type="submit" 
+                    class="mat-raised-button mat-primary" 
+                    [disabled]="!registerForm.valid">
+                    <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                    Register
+                </button>
+                <a routerLink="/login" class="btn btn-link">Cancel</a>
+                
+            </div>
+        </form>
+    </mat-card>
+</div>
